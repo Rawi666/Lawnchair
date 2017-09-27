@@ -118,6 +118,7 @@ public class Settings implements SharedPreferences.OnSharedPreferenceChangeListe
                 case PreferenceFlags.KEY_PREF_PLANE:
                 case PreferenceFlags.KEY_PREF_WEATHER:
                 case PreferenceFlags.KEY_PREF_NUM_ROWS_DRAWER:
+                case PreferenceFlags.KEY_PREF_HIDE_ALL_APPS_SEARCH:
                     mLauncher.scheduleKill();
                 case PreferenceFlags.KEY_BACKPORT_ADAPTIVE_ICONS:
                     mLauncher.scheduleReloadIcons();

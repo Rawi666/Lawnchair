@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.opengl.Visibility;
 import android.support.v7.widget.RecyclerView;
 import android.text.Selection;
 import android.text.Spannable;
@@ -353,6 +354,9 @@ public class AllAppsContainerView extends BaseContainerView implements DragSourc
     private void updatePaddingsAndMargins(int widthPx, int heightPx) {
         Rect bgPadding = new Rect();
         getRevealView().getBackground().getPadding(bgPadding);
+        Boolean hideSearch = Utilities.getPrefs(getContext()).getHideAllAppsSearch();
+        if (hideSearch)
+            mSearchContainer.setVisibility(View.INVISIBLE);
 
         mAppsRecyclerView.updateBackgroundPadding(bgPadding);
         mAdapter.updateBackgroundPadding(bgPadding);
@@ -390,10 +394,10 @@ public class AllAppsContainerView extends BaseContainerView implements DragSourc
             getContentView().setPadding(0, 0, 0, 0);
             int height = insets.top;
             if (mUseRoundSearchBar) {
-                height += getResources().getDimensionPixelSize(R.dimen.all_apps_search_bar_round_height);
-                height += getResources().getDimensionPixelSize(R.dimen.all_apps_search_bar_round_margin_bottom);
+                height += hideSearch ? 0 : getResources().getDimensionPixelSize(R.dimen.all_apps_search_bar_round_height);
+                height += hideSearch ? 0 : getResources().getDimensionPixelSize(R.dimen.all_apps_search_bar_round_margin_bottom);
             } else if (!grid.isVerticalBarLayout()) {
-                height += grid.inv.searchHeightAddition;
+                height += hideSearch ? 0 : grid.inv.searchHeightAddition;
             }
 
             mlp.topMargin = height;
@@ -412,7 +416,7 @@ public class AllAppsContainerView extends BaseContainerView implements DragSourc
             navBarBg.setLayoutParams(params);
             navBarBg.setVisibility(View.VISIBLE);
         }
-        if (mUseRoundSearchBar) {
+        if (mUseRoundSearchBar && !hideSearch) {
             View divider = findViewById(R.id.search_bar_divider);
             MarginLayoutParams dividerParams = (MarginLayoutParams) divider.getLayoutParams();
             dividerParams.topMargin = lp.height - dividerParams.height;
@@ -426,6 +430,7 @@ public class AllAppsContainerView extends BaseContainerView implements DragSourc
         // Determine if the key event was actual text, if so, focus the search bar and then dispatch
         // the key normally so that it can process this key event
         if (!mSearchBarController.isSearchFieldFocused() &&
+                !Utilities.getPrefs(getContext()).getHideAllAppsSearch() &&
                 event.getAction() == KeyEvent.ACTION_DOWN) {
             final int unicodeChar = event.getUnicodeChar();
             final boolean isKeyNotWhitespace = unicodeChar > 0 &&

@@ -54,6 +54,7 @@ object PreferenceFlags {
     const val KEY_PREF_PULLDOWN_ACTION = "pref_pulldownAction"
     const val KEY_PREF_HOTSEAT_EXTRACTED_COLORS = "pref_hotseatShouldUseExtractedColors"
     const val KEY_PREF_HAPTIC_FEEDBACK = "pref_enableHapticFeedback"
+    const val KEY_PREF_HIDE_ALL_APPS_SEARCH = "pref_hideAllAppsSearch"
     const val KEY_PREF_KEEP_SCROLL_STATE = "pref_keepScrollState"
     const val KEY_FULL_WIDTH_SEARCHBAR = "pref_fullWidthSearchbar"
     const val KEY_SHOW_PIXEL_BAR = "pref_showPixelBar"

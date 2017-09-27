@@ -32,6 +32,7 @@ interface IPreferenceProvider {
     val allAppsIconScale: Float
     val allAppsIconTextScale: Float
     val allAppsIconPaddingScale: Float
+    val hideAllAppsSearch: Boolean
     val useCustomAllAppsTextColor: Boolean
     val verticalDrawerLayout: Boolean
 
